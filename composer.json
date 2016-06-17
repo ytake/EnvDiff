@@ -1,0 +1,27 @@
+{
+  "name": "istyle-inc/envdiff",
+  "description": "tag management system for administrator.",
+  "keywords": [
+    "framework",
+    "laravel"
+  ],
+  "license": "MIT",
+  "type": "project",
+  "require": {
+    "php": ">=5.5.0",
+    "josegonzalez/dotenv": "~2.0",
+    "symfony/serializer": "~2.0|~3.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~4.0",
+    "composer/composer": "~1.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Istyle\\EnvDiff\\": "src/"
+    }
+  },
+  "scripts": {
+    "post-update-cmd": "Istyle\\EnvDiff\\EnvScript::postUpdate"
+  }
+}
