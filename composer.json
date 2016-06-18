@@ -1,5 +1,5 @@
 {
-  "name": "istyle-inc/envdiff",
+  "name": "ytake/envdiff",
   "description": "tag management system for administrator.",
   "keywords": [
     "framework",
@@ -9,8 +9,7 @@
   "type": "project",
   "require": {
     "php": ">=5.5.0",
-    "josegonzalez/dotenv": "~2.0",
-    "symfony/serializer": "~2.0|~3.0"
+    "josegonzalez/dotenv": "~2.0"
   },
   "require-dev": {
     "phpunit/phpunit": "~4.0",
@@ -18,10 +17,10 @@
   },
   "autoload": {
     "psr-4": {
-      "Istyle\\EnvDiff\\": "src/"
+      "Ytake\\EnvDiff\\": "src/"
     }
   },
   "scripts": {
-    "post-update-cmd": "Istyle\\EnvDiff\\EnvScript::postUpdate"
+    "check": "Ytake\\EnvDiff\\EnvScript::postUpdate"
   }
 }
