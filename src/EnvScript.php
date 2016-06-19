@@ -15,7 +15,7 @@ class EnvScript
     protected static $filename = '.env';
 
     /**
-     * @param Event $event
+     * @param \Composer\Script\Event $event
      */
     public static function postUpdate(Event $event)
     {
@@ -38,43 +38,43 @@ class EnvScript
             }
         }
         foreach ($iterator as $item) {
-            foreach($item as $key => $value) {
-                if(!isset($basis[$key])) {
+            foreach ($item as $key => $value) {
+                if (!isset($basis[$key])) {
                     $holder[self::$filename][] = "ENVIRONMENT-NAME:[{$key}] not found.";
                 }
             }
         }
         $io = $event->getIO();
-        if(count($holder)) {
-            foreach($holder as $key => $hold) {
-                $io->write(sprintf("<error>%s</error>", "[$key]  " . implode(" ", $hold)));
+        if (count($holder)) {
+            $solved = array_search('--force', $event->getArguments(), 1);
+            if ($solved !== false) {
+                return;
             }
-            $solved = array_search('--force', $event->getArguments());
-            if($solved !== false) {
-                exit;
+            foreach ($holder as $key => $hold) {
+                $io->write(sprintf("<error>%s</error>", "[$key]  " . implode(" ", $hold)));
             }
             throw new \RuntimeException('.env error');
         }
     }
 
-
     /**
-     * @return mixed
-     * @throws \Exception
+     * @return array
      */
     protected static function basisEnv()
     {
-        $files = glob(getcwd() . "/" . self::$filename);
+        $filename = self::$filename;
+        $files = glob(getcwd() . "/{$filename}");
         if (count($files)) {
-            return self::envParser(self::$filename);
+            return self::envParser($filename);
         }
 
-        return false;
+        throw new \RuntimeException(getcwd() . "/{$filename} not found.");
     }
 
     /**
      * @param string $filename
-     * s@return array
+     *
+     * @return array
      */
     private static function envParser($filename)
     {

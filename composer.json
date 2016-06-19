@@ -13,14 +13,12 @@
   },
   "require-dev": {
     "phpunit/phpunit": "~4.0",
-    "composer/composer": "~1.0"
+    "composer/composer": "~1.0",
+    "satooshi/php-coveralls": "*"
   },
   "autoload": {
     "psr-4": {
       "Ytake\\EnvDiff\\": "src/"
     }
-  },
-  "scripts": {
-    "check": "Ytake\\EnvDiff\\EnvScript::postUpdate"
   }
 }
