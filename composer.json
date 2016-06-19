@@ -1,12 +1,14 @@
 {
   "name": "ytake/envdiff",
-  "description": "tag management system for administrator.",
-  "keywords": [
-    "framework",
-    "laravel"
+  "description": "composer event tool to compare environment keys to find the difference between .env files",
+  "authors": [
+    {
+      "name": "Yuuki Takezawa",
+      "email": "yuuki.takezawa@comnect.jp.net"
+    }
   ],
   "license": "MIT",
-  "type": "project",
+  "type": "library",
   "require": {
     "php": ">=5.5.0",
     "josegonzalez/dotenv": "~2.0"
