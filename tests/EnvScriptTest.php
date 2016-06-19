@@ -87,4 +87,31 @@ EOD
         $this->event->getIO()->willReturn($buffer);
         \Ytake\EnvDiff\EnvScript::envDiff($this->event->reveal());
     }
+
+    /**
+     * @expectedException \RuntimeException
+     */
+    public function testShouldReturnEnvironmentNotMatchPatternTwo()
+    {
+        $document = <<< EOD
+APP_MESSAGE=testing
+VARIABLE2=testing
+EOD;
+        file_put_contents('.env', $document);
+        file_put_contents('.env.testing', <<< EOD
+APP_MESSAGE=testing
+VARIABLE3=testing
+EOD
+        );
+        $buffer = new Composer\IO\BufferIO();
+        $this->event->getArguments()->willReturn([]);
+        $this->event->getIO()->willReturn($buffer);
+        try {
+            \Ytake\EnvDiff\EnvScript::envDiff($this->event->reveal());
+        } catch (\RuntimeException $e) {
+            $this->assertSame('[.env.testing]  ENVIRONMENT-NAME:[VARIABLE2] not found.
+[.env]  ENVIRONMENT-NAME:[VARIABLE3] not found.', trim($buffer->getOutput()));
+            throw $e;
+        }
+    }
 }

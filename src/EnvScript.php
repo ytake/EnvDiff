@@ -14,6 +14,9 @@ class EnvScript
     /** @var string */
     protected static $filename = '.env';
 
+    /** @var string  */
+    protected static $errorMessage = "ENVIRONMENT-NAME:[%s] not found.";
+
     /**
      * @param \Composer\Script\Event $event
      */
@@ -25,22 +28,21 @@ class EnvScript
         $holder = [];
         $iterator = [];
         foreach (glob(getcwd() . "/" . self::$filename . '.*') as $filename) {
-
-            $comparison = new ArrayIterator(self::envParser($filename));
+            $comparison = new ArrayIterator(self::envParse($filename));
             $comparison->ksort();
             $iterator[basename($filename)] = $comparison;
         }
-        foreach ($basis as $key => $item) {
-            foreach ($iterator as $file => $i) {
-                if (!isset($i[$key])) {
-                    $holder[$file][] = "ENVIRONMENT-NAME:[{$key}] not found.";
+        foreach ($basis as $basisKey => $basisItem) {
+            foreach ($iterator as $file => $item) {
+                if (!isset($item[$basisKey])) {
+                    $holder[$file][] = sprintf(self::$errorMessage, $basisKey);
                 }
             }
         }
         foreach ($iterator as $item) {
-            foreach ($item as $key => $value) {
-                if (!isset($basis[$key])) {
-                    $holder[self::$filename][] = "ENVIRONMENT-NAME:[{$key}] not found.";
+            foreach ($item as $comparisonKey => $comparisonValue) {
+                if (!isset($basis[$comparisonKey])) {
+                    $holder[self::$filename][] = sprintf(self::$errorMessage, $comparisonKey);
                 }
             }
         }
@@ -65,7 +67,7 @@ class EnvScript
         $filename = self::$filename;
         $files = glob(getcwd() . "/{$filename}");
         if (count($files)) {
-            return self::envParser($filename);
+            return self::envParse($filename);
         }
 
         throw new \RuntimeException(getcwd() . "/{$filename} not found.");
@@ -76,7 +78,7 @@ class EnvScript
      *
      * @return array
      */
-    private static function envParser($filename)
+    private static function envParse($filename)
     {
         $Loader = new Loader($filename);
 
