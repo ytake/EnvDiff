@@ -17,7 +17,7 @@ class EnvScript
     /**
      * @param \Composer\Script\Event $event
      */
-    public static function postUpdate(Event $event)
+    public static function envDiff(Event $event)
     {
         $basisEnv = self::basisEnv();
         $basis = new ArrayIterator($basisEnv);

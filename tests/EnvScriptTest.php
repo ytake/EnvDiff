@@ -31,7 +31,7 @@ class EnvScriptTest extends \PHPUnit_Framework_TestCase
      */
     public function testShouldThrowExceptionNotFoundDotEnv()
     {
-        \Ytake\EnvDiff\EnvScript::postUpdate($this->event->reveal());
+        \Ytake\EnvDiff\EnvScript::envDiff($this->event->reveal());
     }
 
     /**
@@ -43,7 +43,7 @@ $document = <<< EOD
 APP_MESSAGE=testing
 EOD;
         file_put_contents('.env', $document);
-        $this->assertNull(\Ytake\EnvDiff\EnvScript::postUpdate($this->event->reveal()));
+        $this->assertNull(\Ytake\EnvDiff\EnvScript::envDiff($this->event->reveal()));
     }
 
     /**
@@ -64,7 +64,7 @@ EOD
         $this->event->getArguments()->willReturn([]);
         $this->event->getIO()->willReturn($buffer);
         try {
-            \Ytake\EnvDiff\EnvScript::postUpdate($this->event->reveal());
+            \Ytake\EnvDiff\EnvScript::envDiff($this->event->reveal());
         } catch (\RuntimeException $e) {
             $this->assertSame('[.env]  ENVIRONMENT-NAME:[VARIABLE1] not found.', trim($buffer->getOutput()));
             throw $e;
@@ -85,6 +85,6 @@ EOD
         $buffer = new Composer\IO\BufferIO();
         $this->event->getArguments()->willReturn(['--force']);
         $this->event->getIO()->willReturn($buffer);
-        \Ytake\EnvDiff\EnvScript::postUpdate($this->event->reveal());
+        \Ytake\EnvDiff\EnvScript::envDiff($this->event->reveal());
     }
 }

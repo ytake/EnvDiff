@@ -13,7 +13,7 @@ composer event
 
 ```json
   "scripts": {
-    "post-update-cmd": "Ytake\\EnvDiff\\EnvScript::postUpdate"
+    "post-update-cmd": "Ytake\\EnvDiff\\EnvScript::envDiff"
   }
 ```
 
@@ -22,7 +22,7 @@ or custom commands
 example)
 ```json
   "scripts": {
-    "check": "Ytake\\EnvDiff\\EnvScript::postUpdate"
+    "check": "Ytake\\EnvDiff\\EnvScript::envDiff"
   }
 ```
 
