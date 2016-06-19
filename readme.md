@@ -1,5 +1,8 @@
 # EnvDiff
-
+[![Build Status](http://img.shields.io/travis/ytake/EnvDiff/master.svg?style=flat-square)](https://travis-ci.org/ytake/EnvDiff)
+[![Coverage Status](http://img.shields.io/coveralls/ytake/EnvDiff/master.svg?style=flat-square)](https://coveralls.io/r/ytake/EnvDiff?branch=master)
+[![Scrutinizer Code Quality](http://img.shields.io/scrutinizer/g/ytake/EnvDiff.svg?style=flat-square)](https://scrutinizer-ci.com/g/ytake/EnvDiff/?branch=master)
+[![StyleCI](https://styleci.io/repos/61364639/shield)](https://styleci.io/repos/61364639)
 
 EnvDiff is composer event tool to compare environment keys to find the difference between .env files
 
