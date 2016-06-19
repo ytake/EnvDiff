@@ -11,7 +11,7 @@ EnvDiff is composer event tool to compare environment keys to find the differenc
       {
         "type": "git",
         "url": "git@github.com:ytake/EnvDiff.git"
-      },
+      }
     ],
     "require": {
       "ytake/envdiff": "dev-master"
